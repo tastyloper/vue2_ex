@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Food Battle</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-3 text-center">Food Battle</h1>
+    <h1 class="mb-3 text-center">{{ votes.count }}</h1>
+    <button class="btn btn-danger" @click="reset">Reset votes</button>
+    <button class="btn btn-info" @click="stop" v-if="onVotes">Stop votes</button>
+    <button class="btn btn-info" @click="on" v-else>On votes</button>
+    <hr>
+    
+    <div class="row mt-3">
+      <food name="Cheeseburger"></food>
+      <food name="Double Bacon Burger"></food>
+      <food name="Rodeo Burger"></food>
+    </div>
+    <hr>
+    
+    <h1 class="my-3 text-center">Log</h1>
+    <ul class="list-group">
+      <li v-for="vote in votes.log" class="list-group-item">{{ vote }}</li>
+    </ul>
+    <div class="alert alert-primary mt-3" role="alert">
+      <pre>{{ $data }}</pre>
+    </div>
+  </div>
+  
+  <template id="food">
+    <div class="text-center col-4">
+      <h3>{{ votes }}</h3>
+      <button class="btn btn-primary" @click="vote">{{ name }}</button>
+    </div>
+  </template>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+  <script>
+    var bus = new Vue();
+    
+    Vue.component('food', {
+      template: '#food',
+      props: ['name'],
+      data: function () {
+        return {
+          votes: 0
+        }
+      },
+      methods: {
+        vote: function (event) {
+          // this.name을 사용하는 대신
+          // 이벤트의 엘리먼트릐 텍스트에 접근할 수 있습니다.
+          var food = event.srcElement.textContent;
+          this.votes++;
+          bus.$emit('voted', food)
+        },
+        reset: function () {
+          this.votes = 0;
+        }
+      },
+      created () {
+        bus.$on('reset', this.reset)
+      }
+    });
+    
+    new Vue({
+      el: '.container',
+      data: {
+        votes: {
+          count: 0,
+          log: []
+        },
+        onVotes: true
+      },
+      methods: {
+        countVote: function (food) {
+          this.votes.count++;
+          this.votes.log.push(food + ' received a vote.');
+        },
+        reset: function () {
+          this.votes = {
+            count: 0,
+            log: []
+          }
+          bus.$emit('reset');
+        },
+        stop: function () {
+          bus.$off(['voted']);
+          this.onVotes = false;
+        },
+        on: function () {
+          bus.$on('voted', this.countVote);
+          this.onVotes = true;
+        }
+      },
+      created () {
+        bus.$on('voted', this.countVote);
+      }
+    });
+  </script>
+</body>
+</html>

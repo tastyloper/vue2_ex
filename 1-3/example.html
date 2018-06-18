@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello Vue</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <h1 v-if="sex === 'male'">Hello, Mister {{ name }}.</h1>
+      <h1 v-else-if="sex === 'female'">Hello, Miss {{ name }}.</h1>
+      <h1 v-else>So you can't decide. Fine!</h1>
+      <label for="sex">Enter your name:</label>
+      <input type="text" class="form-control" id="sex" v-model="sex">
+      <label for="name">Enter your name:</label>
+      <input type="text" class="form-control" id="name" v-model="name">
+    </div>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        sex: 'female',
+        name: 'Universe'
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Upvote</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-3">This is me!</h1>
+    <button class="btn btn-primary" v-on:click="upvotes++">Upvote! ({{ upvotes }})</button>
+    <div class="alert alert-primary mt-3" role="alert">
+      <pre>{{ $data }}</pre>
+    </div>
+  </div>
+  <script>
+    new Vue({
+      el: '.container',
+      data: {
+        upvotes: 0
+      }
+    });
+  </script>
+</body>
+</html>

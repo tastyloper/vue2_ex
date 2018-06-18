@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello Vue</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <style>
+    .red {
+      background-color: #F00;
+    }
+    .blue {
+      background-color: #00F;
+    }
+    .purple {
+      background-color: #7B1FA2;
+    }
+    .green {
+      background-color: #4CAF50;
+    }
+    .box {
+      float: left;
+      width: 200px;
+      height: 200px;
+      margin: 38.75px;
+      border: 1px solid rgba(0, 0, 0, .2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="text-center">
+      <div class="box" v-bind:class="[ color ? 'red' : 'blue' ]"></div>
+      <div class="box" v-bind:class="[ color ? 'purple' : 'green' ]"></div>
+      <div class="box" v-bind:class="[ color ? 'red' : 'blue' ]"></div>
+      <div class="box" v-bind:class="[ color ? 'purple' : 'green' ]"></div>
+      <button @click="flipColor" class="btn btn-primary btn-block">Flip Color!</button>
+    </div>
+    <div class="alert alert-primary mt-3" role="alert">
+      <pre>{{ $data }}</pre>
+    </div>
+  </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+  <script>
+    new Vue({
+      el: '.container',
+      data: {
+        color: true
+      },
+      methods: {
+        flipColor: function () {
+          this.color = !this.color;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

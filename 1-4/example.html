@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Personal Information</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="mb-3">This is me!</h1>
+  <div>
+    <ul class="list-group">
+      <li v-for='(value, key, index) in story' class="list-group-item">{{ index }} : {{ key }} = {{ value }}</li>
+    </ul>
+  </div>
+  <div class="alert alert-primary mt-3" role="alert">
+    <pre>{{ $data }}</pre>
+  </div>
+
+</div>
+<script>
+  new Vue({
+    el: '.container',
+    data: {
+      story: {
+        name: "Kostas",
+        height: "1.73m",
+        weigh: "65kg",
+        eyeColor: "brown",
+        favoriteFood: "Ntolmas"
+      }
+    }
+  });
+</script>
+</body>
+</html>

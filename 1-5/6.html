@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello Vue</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-3">Enter 2 numbers to Calculate thier sum.</h1>
+    <form class="form-inline">
+      <div class="form-group mb-2">
+        <label for="a" class="sr-only">a</label>
+        <input type="text" class="form-control" id="a" v-model.number="a">
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+        <label for="select" class="sr-only">select</label>
+        <select class="form-control" id="select" title="연산자" v-model="operator">
+          <option>+</option>
+          <option>-</option>
+          <option>*</option>
+          <option>/</option>
+        </select>
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+        <label for="b" class="sr-only">b</label>
+        <input type="text" class="form-control" id="b" v-model.number="b">
+      </div>
+    </form>
+    <h2>Result: {{ a }} {{ operator }} {{ b }} = {{ c }}</h2>
+    <div class="alert alert-primary mt-3" role="alert">
+      <pre>{{ $data }}</pre>
+    </div>
+  </div>
+  <script>
+    new Vue({
+      el: '.container',
+      data: {
+        a: 1,
+        b: 1,
+        operator: "+"
+      },
+      computed: {
+        c: function () {
+          switch (this.operator) {
+            case "+":
+              return this.a + this.b;
+            case "-":
+              return this.a - this.b;
+            case "*":
+              return this.a * this.b;
+            case "/":
+              return this.a / this.b;
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

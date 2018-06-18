@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Stories</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-3">People of Gaul</h1>
+    <ul class="list-group mb-3">
+      <li v-for="person in sortPeople" class="list-group-item">{{ person.name }} {{ person.age }}</li>
+    </ul>
+    <h1 class="mb-3">"Old" People of Gaul</h1>
+    <ul class="list-group">
+      <li v-for="person in old" class="list-group-item">{{ person.name }} {{ person.age }}</li>
+    </ul>
+    <div class="alert alert-primary mt-3" role="alert">
+      <pre>{{ $data }}</pre>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+  <script>
+    new Vue({
+      el: '.container',
+      data: {
+        people: [
+          {
+            name: "Asterix",
+            age: 32
+          },
+          {
+            name: "Obelix",
+            age: 31
+          },
+          {
+            name: "Julius Caesar",
+            age: 56
+          },
+          {
+            name: "Majestix",
+            age: 62
+          },
+          {
+            name: "John",
+            age: 64
+          },
+          {
+            name: "Cho",
+            age: 65
+          },
+          {
+            name: "Choi",
+            age: 66
+          },
+        ]
+      },
+      computed: {
+        sortPeople: function () {
+          return _.orderBy(this.people, 'age')
+        },
+        old: function () {
+          return this.people.filter(function (item) {
+            return item.age >= 65;
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>

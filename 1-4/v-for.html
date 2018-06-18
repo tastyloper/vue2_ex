@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello Vue</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>The multiplication table of 4.</h1>
+    <ul class="list-group">
+      <li v-for='i in 11' class="list-group-item">{{ i-1 }} time 4 equals {{ (i-1) * 4 }}</li>
+    </ul>
+  </div>
+  <script>
+    new Vue({
+      el: '.container'
+    });
+  </script>
+</body>
+</html>

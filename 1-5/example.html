@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Elections</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-3">People of Vue</h1>
+    <div>
+      <ul class="list-group">
+        <li v-for='mayor in mayors' class="list-group-item">
+          {{ mayor.name }} {{ mayor.votes }}
+          <button class="btn btn-primary" @click="mayor.votes++">Vote</button>
+        </li>
+      </ul>
+    </div>
+    <input type="text" class="form-control my-3" placeholder="press 'delete' to reset" @keyup.delete="del">
+    <h2>Our mayer is {{ ourMayer }}</h2>
+    <div class="alert alert-primary mt-3" role="alert">
+      <pre>{{ $data }}</pre>
+    </div>
+    
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+  <script>
+    new Vue({
+      el: '.container',
+      data: {
+        mayors: [
+          {
+            name: "Mr. Black",
+            votes: 146
+          },
+          {
+            name: "Mr. Pink",
+            votes: 145
+          },
+          {
+            name: "Mr. White",
+            votes: 135
+          },
+          {
+            name: "Mr. Brown",
+            votes: 130
+          }
+        ]
+      },
+      computed: {
+        del: function () {
+          jQuery.map(this.mayors, function(a){
+            return a.votes = 0;
+          });
+        },
+        ourMayer: function () {
+          const best = this.mayors.sort(function(a, b) {
+            return b["votes"] - a["votes"];
+          });
+          return best[0].name;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

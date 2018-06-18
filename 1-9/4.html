@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello Vue</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <style>
+    .completed {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <ul class="list-group">
+      <li class="list-group-item" :class="{'completed' : task.done}" :style="styleObject" v-for="task in tasks">
+        {{ task.body }}
+        <button class="btn btn-info mx-3" @click="completeTask(task)">Just do it</button>
+      </li>
+    </ul>
+    <div class="alert alert-primary mt-3" role="alert">
+      <pre>{{ $data }}</pre>
+    </div>
+  </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+  <script>
+    new Vue({
+      el: '.container',
+      data: {
+        tasks: [
+          {
+            body: "Feed the horses",
+            done: true
+          },
+          {
+            body: "Wash armor",
+            done: true
+          },
+          {
+            body: "Sharp sword",
+            done: false
+          }
+        ],
+        styleObject: {
+          fontSize: '25px'
+        }
+      },
+      methods: {
+        completeTask: function (task) {
+          task.done = !task.done;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

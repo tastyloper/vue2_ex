@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello Vue</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <h1>Hello {{ message }}</h1>
+      <label for="name">Enter your name:</label>
+      <input type="text" class="form-control" id="name" v-model="message">
+    </div>
+  </div>
+  <script>
+    var data = {
+      message: 'Mr. Anderson'
+    };
+    new Vue({
+      el: '#app',
+      data: data
+    });
+  </script>
+</body>
+</html>

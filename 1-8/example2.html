@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Hores-drawn Chariots</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-3">Chariot shopping</h1>
+    <ul class="list-group">
+      <chariot v-for="chariot in chariots" :chariot="chariot" :pick="pick" @update="updatePick"></chariot>
+    </ul>
+    <div class="alert alert-primary mt-3" role="alert">
+      <pre>{{ $data }}</pre>
+    </div>
+  </div>
+
+  <template id="chariot-template">
+    <li class="list-group-item">
+      <p>"{{ chariot.name }}" chariot has <b>{{ chariot.horses }}</b> horse(s)!</p>
+      <button class="btn btn-primary mx-3" :disabled="isPick" @click="markAsPick">{{ action }}</button>
+    </li>
+  </template>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+  <script>
+    Vue.component('chariot', {
+      props: ['chariot', 'pick'],
+      template: '#chariot-template',
+      methods: {
+        markAsPick: function () {
+          this.$emit('update', this.chariot)
+        }
+      },
+      computed: {
+        isPick: function () {
+          return this.pick === this.chariot;
+        },
+        moreHorses: function () {
+          return this.pick.horses < this.chariot.horses;
+        },
+        noPick: function () {
+          return this.pick.name == null;
+        },
+        action: function () {
+          if (this.noPick) {
+            action = 'Pick Chariot'
+          } else if (this.isPick) {
+            action = 'Riding!'
+          } else if (this.moreHorses) {
+            action = 'Hire Horses'
+          } else {
+            action = 'Dismiss Horses'
+          }
+          return action;
+        }
+      }
+    });
+    new Vue({
+      el: '.container',
+      data: {
+        chariots: [
+          {
+            name: "Olympus",
+            horses: 4,
+          },
+          {
+            name: "Sagitta",
+            horses: 3,
+          },
+          {
+            name: "Icarus",
+            horses: 2,
+          },
+          {
+            name: "Abraxas",
+            horses: 1,
+          }
+        ],
+        pick: {}
+      },
+      methods: {
+        updatePick: function (chariot) {
+          this.pick = chariot;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
